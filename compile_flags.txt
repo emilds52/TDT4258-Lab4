@@ -1,0 +1,5 @@
+-Wno-main-return-type
+-I/opt/microchip/xc8/v2.45/dfp/xc8/avr/include
+-I/opt/microchip/xc8/v2.45/avr/lib/gcc/avr/5.4.0/include
+-I/opt/microchip/xc8/v2.45/avr/lib/gcc/avr/5.4.0/include-fixed
+-I/opt/microchip/xc8/v2.45/avr/avr/include
