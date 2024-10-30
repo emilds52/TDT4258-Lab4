@@ -10,6 +10,7 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
+      <itemPath>tihi.txt</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
