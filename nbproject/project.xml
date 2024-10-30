@@ -6,6 +6,7 @@
             <name>lab4</name>
             <creation-uuid>e0db5f42-905f-47f4-9f24-5f3f1c807865</creation-uuid>
             <make-project-type>0</make-project-type>
+            <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
@@ -14,7 +15,6 @@
                     <type>2</type>
                 </confElem>
             </confList>
-            <sourceEncoding>UTF-8</sourceEncoding>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
             </formatting>
