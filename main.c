@@ -8,6 +8,12 @@
 #define DACREF_VALUE 25
 
 void AC_init(){
+    PORTA.PINCONFIG = PORT_ISC_INPUT_DISABLE_gc | PORT_PULLUPEN_bm;
+    PORTA.PINCTRLUPD = 0xFF;
+    PORTC.PINCONFIG = PORT_ISC_INPUT_DISABLE_gc | PORT_PULLUPEN_bm;
+    PORTC.PINCTRLUPD = 0xFF;
+    PORTD.PINCONFIG = PORT_ISC_INPUT_DISABLE_gc | PORT_PULLUPEN_bm;
+    PORTD.PINCTRLUPD = 0xFF;
     // Set pin PD2 (port D, pin 2) as an input
     PORTD.DIRCLR = PIN2_bm;
     // Disable digital input buffer and pull-up resistor for pin PD2
