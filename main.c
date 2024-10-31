@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
-#include "usart.h"
+//#include "usart.h"
+#include <avr/power.h>
 
 // 256*100/1024
 #define DACREF_VALUE 25
@@ -26,7 +27,8 @@ void AC_init(){
                 AC_ENABLE_bm;
     AC0.DACREF = DACREF_VALUE;
     AC0.CTRLB = AC_WINSEL_DISABLED_gc;
-    AC0.INTCTRL = AC_CMP_bm;
+    AC0.INTCTRL = 0;
+    EVSYS.CHANNEL0 = EVSYS_CHANNEL0_AC0_OUT_gc;
 }
 
 void VREF_init(void) {
@@ -35,6 +37,7 @@ void VREF_init(void) {
 
 void LED_init() {
     PORTA.DIRSET = PIN2_bm;
+    EVSYS.USEREVSYSEVOUTA = 1;
 }
 void set_LED_on(){
     // LED is active low. Set pin LOW to turn LED on
@@ -51,34 +54,16 @@ void sleep_init(void) {
     set_sleep_mode(SLEEP_MODE_STANDBY);  // Standby sleep mode
 }
 
-ISR(AC0_AC_vect)
-{
-
-    // Add your code here 
-    if (AC0.STATUS & AC_CMPSTATE_bm){
-        set_LED_off();
-        //char message[100];
-        //sprintf(message, "0x%02x \n", AC0.STATUS);
-        //USART3_SendString(message);
-    } else {
-        set_LED_on();
-    }
-    // Clear interrupt flag
-    AC0.STATUS |= AC_CMPIF_bm;    
-}
-
 int main(){
     AC_init();
     VREF_init();
     LED_init();
     //USART3_Init();
-    // Initialize timer
-    // Enable interrupts
-    sei();
-    sleep_init();
 
+    sleep_init();
+    sleep_mode();
     while(1) {
-        sleep_mode();
+        
     }
     return 0;
 };
