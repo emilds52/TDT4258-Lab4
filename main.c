@@ -26,6 +26,7 @@ void AC_init(){
                 AC_ENABLE_bm;
     AC0.DACREF = DACREF_VALUE;
     AC0.CTRLB = AC_WINSEL_DISABLED_gc;
+    AC0.INTCTRL = AC_CMP_bm;
 }
 
 void VREF_init(void) {
@@ -50,17 +51,7 @@ void sleep_init(void) {
     set_sleep_mode(SLEEP_MODE_STANDBY);  // Standby sleep mode
 }
 
-
-void TCA0_init() {
-    // Set the period of the timer. PER = period[s] * F_CPU / Prescaler = 0.01s * 4 000 000 Hz / 2
-    TCA0.SINGLE.PER = 20000;
-    // Enable timer overflow interrupt
-    TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
-    // Run timer in standby mode, set prescaler to 2, enable timer
-    TCA0.SINGLE.CTRLA = TCA_SINGLE_RUNSTDBY_bm | TCA_SINGLE_CLKSEL_DIV2_gc | TCA_SINGLE_ENABLE_bm;
-}
-
-ISR(TCA0_OVF_vect)
+ISR(AC0_AC_vect)
 {
 
     // Add your code here 
@@ -73,7 +64,7 @@ ISR(TCA0_OVF_vect)
         set_LED_on();
     }
     // Clear interrupt flag
-    TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+    AC0.STATUS |= AC_CMPIF_bm;    
 }
 
 int main(){
@@ -82,7 +73,6 @@ int main(){
     LED_init();
     //USART3_Init();
     // Initialize timer
-    TCA0_init();
     // Enable interrupts
     sei();
     sleep_init();
